@@ -8,7 +8,6 @@ const Lessons = () => {
   const [filterBy, setFilterBy] = useState("title");
   const [filterCondition, setFilterCondition] = useState("");
   const [showViewModal, setShowViewModal] = useState(false);
-  const [showViewExamModal, setShowViewExamModal] = useState(false);
   const [selectedLesson, setSelectedLesson] = useState(null);
 
   const columns = [
@@ -42,16 +41,6 @@ const Lessons = () => {
       ),
     },
     {
-      title: "Course Materials",
-      dataIndex: "materials",
-      key: "materials",
-    },
-    {
-      title: "Exams & Questions",
-      dataIndex: "examQuestions",
-      key: "examQuestions",
-    },
-    {
       title: "Actions",
       key: "actions",
       render: (text, record) => (
@@ -65,15 +54,6 @@ const Lessons = () => {
           >
             View Lesson
           </Button>
-          <Button
-            className="ms-2"
-            onClick={() => {
-              setSelectedLesson(record);
-              setShowViewExamModal(true);
-            }}
-          >
-            Download lecture
-          </Button>
         </div>
       ),
     },
@@ -85,16 +65,16 @@ const Lessons = () => {
       courseName: "Mathematics",
       courseID: "MATH101",
       teachers: ["John Doe", "Jane Smith"],
-      materials: 5,
-      examQuestions: 10,
+      videoUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ", // Example video URL
+      content: "This is the content of lesson 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit.", // Example content
     },
     {
       title: "Lesson 2",
       courseName: "Physics",
       courseID: "PHYS101",
       teachers: ["Alice Johnson"],
-      materials: 3,
-      examQuestions: 8,
+      videoUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ", // Example video URL
+      content: "This is the content of lesson 2. Lorem ipsum dolor sit amet, consectetur adipiscing elit.", // Example content
     },
     // Add more lessons here...
   ];
@@ -141,7 +121,23 @@ const Lessons = () => {
         dataSource={filteredLessons}
         rowKey={(record) => record.title}
       />
-      {/* Add modals for view lesson and view exams/questions */}
+      {/* View Lesson Modal */}
+      <Modal
+        title={selectedLesson ? selectedLesson.title : ""}
+        visible={showViewModal}
+        onCancel={() => setShowViewModal(false)}
+        footer={null}
+        width={800}
+      >
+        {selectedLesson && (
+          <div>
+            <video url={selectedLesson.videoUrl} controls={true} />
+            <div className="mt-4">
+              <p>{selectedLesson.content}</p>
+            </div>
+          </div>
+        )}
+      </Modal>
     </div>
   );
 };

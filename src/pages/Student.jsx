@@ -14,6 +14,7 @@ import { FaBookOpen, FaPencilAlt } from "react-icons/fa";
 import Courses from "../components/Student/Courses";
 import MyCourses from "../components/Student/MyCourses";
 import Lessons from "../components/Student/Lessons";
+import Assignments from "../components/Student/Assignments";
 const { Header, Sider, Content } = Layout;
 
 const Student = () => {
@@ -38,9 +39,9 @@ const Student = () => {
     case "4":
       content = <Lessons />;
       break;
-    // case "5":
-    //   content = <MyActivity />;
-    //   break;
+    case "5":
+      content = <Assignments />;
+      break;
     // case "6":
     //   content = <Me />;
     //   break;
@@ -90,6 +91,11 @@ const Student = () => {
               key: "4",
               icon: <FaPencilAlt />,
               label: "Lessons",
+            },
+            {
+              key: "5",
+              icon: <FaPencilAlt />,
+              label: "Assignments",
             }  
           ]}
           onClick={handleMenuClick}
